@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :find_user, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in?, except: [:index, :show, :new, :create]
 
   def index
     @users = User.all
@@ -40,6 +41,7 @@ class UsersController < ApplicationController
   def destroy
     if @user.destroy
       flash[:success] = "User successfully deleted."
+      reset_session
       redirect_to users_path
     else
       flash[:error] = "Error deleting user."

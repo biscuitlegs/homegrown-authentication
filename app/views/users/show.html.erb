@@ -1,5 +1,12 @@
 <h1><%= @user.email %></h1>
 
-<%= link_to "Edit User", edit_user_path(@user) %>
-<%= link_to "Delete User", @user, method: :delete, data: { confirm: "Really delete this User?" } %>
+
+<% if current_user && current_user.id == @user.id%>
+    <%= link_to "Edit User", edit_user_path(@user) %>
+    <%= link_to "Delete User", @user, method: :delete, data: { confirm: "Really delete this User?" } %>
+<% else %>
+    <h3> You can only edit or delete this User if you are logged into their account. </h3>
+<% end %>
+
+
 <%= link_to "<<All Users", users_path %>
